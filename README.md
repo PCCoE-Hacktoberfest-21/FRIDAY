@@ -1,11 +1,11 @@
 # FRIDAY - Voice Assistant 🤖
 ![FRIDAY img](assets/FRIDAY.jpg)
-#### What is FRIDAY?
+## What is FRIDAY?
 Friday is a Python based Voice Assistant built using gTTs, speech-recognition etc.
 
 This repository is accepting PRs for HacktoberFest 2021🤩
 
-#### How to Contribute?
+## How to Contribute?
 - Take a look at the existing issues or create your own Issues
 - Wait for the issue to be assigned to you after which you can start working on it.
 - Fork the Repository and create a branch for the issue you are working on.
