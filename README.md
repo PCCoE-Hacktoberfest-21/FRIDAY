@@ -1,6 +1,14 @@
 # FRIDAY - Voice Assistant 🤖
 ![FRIDAY img](assets/FRIDAY.jpg)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
+
+![Issues](https://img.shields.io/github/issues/PCCoE-Hacktoberfest-21/FRIDAY)
+![Pull Requests](https://img.shields.io/github/issues-pr/PCCoE-Hacktoberfest-21/FRIDAY)
+![Forks](https://img.shields.io/github/forks/PCCoE-Hacktoberfest-21/FRIDAY)
+![Stars](https://img.shields.io/github/stars/PCCoE-Hacktoberfest-21/FRIDAY)
+![License](https://img.shields.io/github/license/PCCoE-Hacktoberfest-21/FRIDAY)
+
 ## What is FRIDAY?
 Friday is a Python based Voice Assistant built using gTTs, speech-recognition etc.
 
