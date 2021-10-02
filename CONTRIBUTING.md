@@ -21,7 +21,7 @@
     ```bash
     git remote add upstream https://github.com/PCCoE-Hacktoberfest-21/FRIDAY.git
     git fetch upstream
-    git pull upstream master
+    git pull upstream main
     git push
     ```
 
