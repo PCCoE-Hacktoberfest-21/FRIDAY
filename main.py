@@ -41,7 +41,21 @@ def speak(text):
 #Voice_assistant skills#
 
 time.sleep(2)
-speak("Hi what can i do for you?")
+
+def wishMe():
+    hour = int(datetime.datetime.now().hour)
+    if hour > 0 and hour<12:
+        speak("Good Morning!")
+
+    elif hour >= 12 and hour <= 16:
+        speak("Good Afternoon!")   
+
+    elif hour > 16 and hour < 20:
+        speak("Good Evening!")
+    else:
+        speak("Good Night!")
+
+speak("What can i do for you?")
 
 last_query = None
 
