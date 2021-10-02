@@ -40,6 +40,7 @@ def speak(text):
     os.remove(filename)
 
 
+
 def check_command_is_for_covid_cases(command):
     if 'active cases of covid-19' in command:
         country = get_country(command).capitalize()
