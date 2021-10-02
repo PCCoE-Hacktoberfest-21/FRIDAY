@@ -42,6 +42,9 @@ def speak(text):
 
 time.sleep(2)
 speak("Hi what can i do for you?")
+
+last_query = None
+
 while True:
         query = get_audio().lower()
         if 'the time' in query:
@@ -49,6 +52,12 @@ while True:
             speak(f"Sir, the time is {strTime}")
 
         # add more functinalities below this:
-        
+        if last_query:
+            if last_query == 'open notepad':
+                with open('notepad.txt','w+') as file:
+                    file.write(query)
+
+        elif 'open notepad' in query:
+            last_query = 'open notepad'
         else:
             break
