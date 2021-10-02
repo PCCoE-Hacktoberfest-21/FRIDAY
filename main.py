@@ -55,7 +55,7 @@ while True:
 
         # add more functionalities below this:
 
-        if 'joke' in query:
+        elif 'joke' in query:
             speak(get_joke())
 
         if last_query:
