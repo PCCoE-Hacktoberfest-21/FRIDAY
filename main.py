@@ -61,7 +61,7 @@ while True:
         elif 'open notepad' in query:
             last_query = 'open notepad'
 
-        if 'weather' in query:
+        elif 'weather' in query:
             speak("Please tell your city name?")
             city = get_audio().lower()
             # creating url and requests instance
