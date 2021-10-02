@@ -7,7 +7,7 @@ import pyaudio        #pip install PyAudio
 import datetime   
 import requests
 import json
-
+from bs4 import BeautifulSoup
 
 #function to accept audio input from user
 def get_audio():
@@ -65,5 +65,20 @@ while True:
 
         elif 'open notepad' in query:
             last_query = 'open notepad'
+
+        elif 'weather' in query:
+            speak("Please tell your city name?")
+            city = get_audio().lower()
+            # creating url and requests instance
+            url = "https://www.google.com/search?q="+"weather"+city
+            html = requests.get(url).content
+            soup = BeautifulSoup(html, 'html.parser')
+            temp = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+            str = soup.find('div', attrs={'class': 'BNeawe tAd8D AP7Wnd'}).text
+            data = str.split('\n')
+            sky = data[1] 
+            speak(f"Temperature for {city} today is {temp} °C")
+            speak(f"And the sky will be {sky}")
+
         else:
             break
