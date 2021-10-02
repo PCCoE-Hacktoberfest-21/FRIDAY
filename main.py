@@ -40,12 +40,10 @@ def speak(text):
     os.remove(filename)
 
 
-
 def check_command_is_for_covid_cases(command):
-    if 'active cases of covid-19' in command:
-        country = get_country(command).capitalize()
-        cases = get_covid_cases(country)
-        speak(f"The current active cases in {country} are {cases}")
+    country = get_country(command).capitalize()
+    cases = get_covid_cases(country)
+    speak(f"The current active cases in {country} are {cases}")
 
 
 def get_country(command):
@@ -76,7 +74,8 @@ while True:
         strTime = datetime.datetime.now().strftime("%H:%M:%S")
         speak(f"Sir, the time is {strTime}")
 
-    check_command_is_for_covid_cases(query)
+    elif 'active cases of covid-19' in query:
+        check_command_is_for_covid_cases(query)
 
     # add more functinalities below this:
     if last_query:
