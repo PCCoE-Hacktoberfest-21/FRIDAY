@@ -23,4 +23,9 @@ This repository is accepting PRs for HacktoberFest 2021🤩
 - Describe what your codeblock / function does in the PR.
 - Having difficulty in contributing? Read the [Contribution Guide](CONTRIBUTING.md) for a detailed explanation.  
 
+## Project Maintainer 🦸‍♂️
+|                                     <a href="https://github.com/rohitjoshi6"><img src="https://avatars.githubusercontent.com/rohitjoshi6" width=150px height=150px /></a>                                      |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                                      **[Rohit Joshi](https://www.linkedin.com/in/rohit-joshi-5119191a7/)** 
+
 
