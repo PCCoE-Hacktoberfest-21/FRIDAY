@@ -1,15 +1,16 @@
 import datetime
+import json
 import os
 import time
 
 import playsound  # pip install playsound
 import requests
-import speech_recognition as sr  # pip install speech_recognition
+import speech_recognition as sr  # pip install SpeechRecognition
+from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
-
-
-# function to accept audio input from user#
-
+import pyaudio        #pip install PyAudio
+# function to accept audio input from user
+# get_audio()
 def get_audio():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -26,11 +27,15 @@ def get_audio():
     return said
 
 
-# get_audio()
+# function to return joke from api
+def get_joke():
+    response = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "application/json"})
+    json_data = json.loads(response.text)
+    joke = json_data['joke']
+    return joke
 
 
-# function to convert text_to_speech#
-
+# function to convert text_to_speech
 
 def speak(text):
     tts = gTTS(text=text, lang="en-in")
@@ -77,7 +82,9 @@ while True:
     elif 'active cases of covid-19' in query:
         check_command_is_for_covid_cases(query)
 
-    # add more functinalities below this:
+    elif 'joke' in query:
+        speak(get_joke())
+
     if last_query:
         if last_query == 'open notepad':
             with open('notepad.txt', 'w+') as file:
@@ -85,5 +92,20 @@ while True:
 
     elif 'open notepad' in query:
         last_query = 'open notepad'
+
+    elif 'weather' in query:
+        speak("Please tell your city name?")
+        city = get_audio().lower()
+        # creating url and requests instance
+        url = "https://www.google.com/search?q=" + "weather" + city
+        html = requests.get(url).content
+        soup = BeautifulSoup(html, 'html.parser')
+        temp = soup.find('div', attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+        str = soup.find('div', attrs={'class': 'BNeawe tAd8D AP7Wnd'}).text
+        data = str.split('\n')
+        sky = data[1]
+        speak(f"Temperature for {city} today is {temp} °C")
+        speak(f"And the sky will be {sky}")
+
     else:
         break
