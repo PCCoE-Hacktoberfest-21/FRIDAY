@@ -2,6 +2,8 @@ import datetime
 import json
 import os
 import time
+import requests
+import base64
 
 import playsound  # pip install playsound
 import requests
@@ -14,6 +16,7 @@ import pyaudio        #pip install PyAudio
 def get_audio():
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
         said = ""
 
@@ -65,6 +68,38 @@ def get_covid_cases(country):
         totalActiveCases += data.get('Active')
     return totalActiveCases
 
+def get_trending_topics(trending_topics):
+    consumer_key = os.getenv('consumer_key') #set consumer key using twitter developer account api in environment variables
+    consumer_secret_key = os.environ.get('consumer_secret_key') #set consumer secret key using twitter developer account api in environment variables
+    # Reformat the keys and encode them
+    key_secret = '{}:{}'.format(consumer_key, consumer_secret_key).encode('ascii')
+    # Transform from bytes to bytes that can be printed
+    b64_encoded_key = base64.b64encode(key_secret)
+    # Transform from bytes back into Unicode
+    b64_encoded_key = b64_encoded_key.decode('ascii')
+    base_url = 'https://api.twitter.com/'
+    auth_url = '{}oauth2/token'.format(base_url)
+    auth_headers = {
+        'Authorization': 'Basic {}'.format(b64_encoded_key),
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    }
+    auth_data = {
+        'grant_type': 'client_credentials'
+    }
+    auth_resp = requests.post(auth_url, headers=auth_headers, data=auth_data)
+    access_token = auth_resp.json()['access_token']
+    trend_headers = {
+        'Authorization': 'Bearer {}'.format(access_token)
+    }
+    trend_params = {
+        'id': 2295411,  # set to 1 if you want global trending topics
+    }
+    trend_url = 'https://api.twitter.com/1.1/trends/place.json'
+    trend_resp = requests.get(trend_url, headers=trend_headers, params=trend_params)
+    tweet_data = trend_resp.json()
+    for i in range(0, 5):
+        tt = tweet_data[0]['trends'][i]['name']
+        trending_topics.append(tt[1:])
 
 # Voice_assistant skills#
 
@@ -106,6 +141,12 @@ while True:
         sky = data[1]
         speak(f"Temperature for {city} today is {temp} °C")
         speak(f"And the sky will be {sky}")
+
+    elif 'trending' in query:
+        trending_topics = []
+        get_trending_topics(trending_topics)
+        for i in trending_topics:
+            speak(i)
 
     else:
         break
