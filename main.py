@@ -8,7 +8,9 @@ import requests
 import speech_recognition as sr  # pip install SpeechRecognition
 from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
-import pyaudio        #pip install PyAudio
+import pyaudio  # pip install PyAudio
+
+
 # function to accept audio input from user
 # get_audio()
 def get_audio():
@@ -27,22 +29,22 @@ def get_audio():
     return said
 
 
-# function to return joke from api
-def get_joke():
-    response = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "application/json"})
-    json_data = json.loads(response.text)
-    joke = json_data['joke']
-    return joke
-
-
 # function to convert text_to_speech
-
 def speak(text):
     tts = gTTS(text=text, lang="en-in")
     filename = "voice2.mp3"
     tts.save(filename)
     playsound.playsound(filename)
     os.remove(filename)
+
+# Voice_assistant skills#
+
+# function to return joke from api
+def get_joke():
+    response = requests.get("https://icanhazdadjoke.com/", headers={"Accept": "application/json"})
+    json_data = json.loads(response.text)
+    joke = json_data['joke']
+    return joke
 
 
 def check_command_is_for_covid_cases(command):
@@ -66,7 +68,16 @@ def get_covid_cases(country):
     return totalActiveCases
 
 
-# Voice_assistant skills#
+# function to get meaning of a word
+def get_meaning():
+    speak("Please say the word you want to know meaning of")
+    word = get_audio().lower()
+    url = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word
+    response = requests.get(url)
+    json_data = json.loads(response.text)
+    meaning = json_data[0]["meanings"][0]["definitions"][0]["definition"]
+    return meaning
+
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -106,6 +117,9 @@ while True:
         sky = data[1]
         speak(f"Temperature for {city} today is {temp} °C")
         speak(f"And the sky will be {sky}")
+
+    elif 'meaning' in query:
+        speak(get_meaning())
 
     else:
         break
