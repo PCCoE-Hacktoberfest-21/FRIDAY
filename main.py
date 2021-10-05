@@ -11,6 +11,8 @@ import speech_recognition as sr  # pip install SpeechRecognition
 from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
+import speedtest  # for speedtest application
+
 
 
 from newsapi import NewsApiClient  # for latest news api
@@ -192,7 +194,15 @@ while True:
 
     elif 'fact' or 'facts' in query:
         get_facts()
-
+    elif "internet" in command and "speed" in command:
+            speak("Wait for while...")
+            st = speedtest.Speedtest()
+            up = round(st.upload() / 10 ** 6, 2)
+            down = round(st.download() / 10 ** 6, 2)
+            print(f"Download Speed is {down} MB/s")
+            speak(f"Download Speed is {down} MB per Sceond")
+            print(f"Upload Speed is {up} MB/s")
+            speak(f"Upload Speed is {up} Mb per Sceond")
 
     else:
         break
