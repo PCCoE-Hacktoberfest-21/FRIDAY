@@ -12,13 +12,19 @@ from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
 
+
 from newsapi import NewsApiClient  # for latest news api
 import credentials
+
+#if pyaudio installation is failed, try installing it with pyaudio
+import randfacts as rf #pip install randfacts
+
 
 # function to accept audio input from user
 # get_audio()
 def get_audio():
     r = sr.Recognizer()
+    engine = pyttsx3.init()
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
@@ -109,7 +115,7 @@ def get_trending_topics(trending_topics):
         'Authorization': 'Bearer {}'.format(access_token)
     }
     trend_params = {
-        'id': 2295411,  # set to 1 if you want global trending topics
+        'id': 2295411,  # set to 1 if you want global trending topics, currently set to WOEID of mumbai
     }
     trend_url = 'https://api.twitter.com/1.1/trends/place.json'
     trend_resp = requests.get(trend_url, headers=trend_headers, params=trend_params)
@@ -128,6 +134,8 @@ def get_meaning():
     meaning = json_data[0]["meanings"][0]["definitions"][0]["definition"]
     return meaning
 
+def get_facts():
+    speak(rf.get_fact())
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -181,5 +189,10 @@ while True:
     elif 'news' in query:
         news()
         
+
+    elif 'fact' or 'facts' in query:
+        get_facts()
+
+
     else:
         break
