@@ -16,9 +16,9 @@ import pyaudio  # pip install PyAudio
 from newsapi import NewsApiClient  # for latest news api
 import credentials
 
-#if pyaudio installation is failed, try installing it with pyaudio
+#if pyaudio installation is failed, try installing it with pywin
 import randfacts as rf #pip install randfacts
-
+from quote import quote
 
 # function to accept audio input from user
 # get_audio()
@@ -137,6 +137,12 @@ def get_meaning():
 def get_facts():
     speak(rf.get_fact())
 
+def get_quote():
+    qt = quote(limit=1)
+    for i in range(len(qt)):
+        qt_say = qt[i]['quote'] + ' given by ' + qt[i]['author']
+        speak(qt_say)
+
 time.sleep(2)
 speak("Hi what can i do for you?")
 
@@ -188,11 +194,12 @@ while True:
     
     elif 'news' in query:
         news()
-        
 
     elif 'fact' or 'facts' in query:
         get_facts()
 
+    elif 'quote' in query:
+        get_quote()
 
     else:
         break
