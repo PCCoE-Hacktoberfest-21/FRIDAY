@@ -11,8 +11,14 @@ import speech_recognition as sr  # pip install SpeechRecognition
 from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
+
+
+from newsapi import NewsApiClient  # for latest news api
+import credentials
+
 #if pyaudio installation is failed, try installing it with pyaudio
 import randfacts as rf #pip install randfacts
+
 
 # function to accept audio input from user
 # get_audio()
@@ -43,6 +49,19 @@ def speak(text):
     os.remove(filename)
 
 # Voice_assistant skills#
+
+# function for News
+def news():
+    # for latest news
+    newsapi = NewsApiClient(api_key='{}'.format(credentials.newsapikey))
+    # /v2/top-headlines
+    top_headlines = newsapi.get_top_headlines(country='in')
+    ranks = ["First", 'Sceond', 'Third', 'Fourth', 'Fifth']
+    for i in range(5):
+        # first five news
+
+        print(f"{ranks[i]} News : {top_headlines['articles'][i]['title']}")
+        speak(f"{ranks[i]} News : {top_headlines['articles'][i]['title']}".replace(" - ", "news by"))
 
 # function to return joke from api
 def get_joke():
@@ -166,9 +185,14 @@ while True:
 
     elif 'meaning' in query:
         speak(get_meaning())
+    
+    elif 'news' in query:
+        news()
+        
 
     elif 'fact' or 'facts' in query:
         get_facts()
+
 
     else:
         break
