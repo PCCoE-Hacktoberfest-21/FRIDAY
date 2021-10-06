@@ -216,4 +216,4 @@ while True:
 
 
     else:
-        break
+        speak("could not recognize")
