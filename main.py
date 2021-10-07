@@ -216,4 +216,5 @@ while True:
 
 
     else:
-        break
+        speak("there is problem with command ,please say again..")
+            continue
