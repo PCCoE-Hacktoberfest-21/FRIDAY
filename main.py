@@ -12,10 +12,11 @@ from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
 import speedtest  # for speedtest application
+import smtplib 
+from email.message import EmailMessage 
 
 
-
-from newsapi import NewsApiClient  # for latest news api
+# from newsapi import NewsApiClient  # for latest news api
 import credentials
 
 #if pyaudio installation is failed, try installing it with pywin
@@ -145,6 +146,26 @@ def get_quote():
         qt_say = qt[i]['quote'] + ' given by ' + qt[i]['author']
         speak(qt_say)
 
+
+# function to send email
+def send_email(sender, receiver, subject, message):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    email_id = 'xyz@gmail.com'
+    password = 'xyz@123'
+    server.login(email_id, password)
+
+    email = EmailMessage()  # Create an instance
+    email['From'] = sender
+    email['To'] = receiver
+    email['Subject'] = subject
+    email.set_content(message)
+    server.send_message(email)
+    server.close()
+
+
+
+
 time.sleep(2)
 speak("Hi what can i do for you?")
 
@@ -213,7 +234,13 @@ while True:
 
     elif 'quote' in query:
         get_quote()
-
+    
+    elif 'send email' in query:
+        sender = "xyz@gmail.com"
+        receiver = "abc@gmail.com"
+        subject = "send email"
+        message = "Testing send email"
+        send_email(sender, receiver, subject, message)
 
     else:
         break
