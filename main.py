@@ -235,6 +235,7 @@ while True:
     elif 'quote' in query:
         get_quote()
     
+<<<<<<< HEAD
     elif 'send email' in query:
         sender = "xyz@gmail.com"
         receiver = "abc@gmail.com"
@@ -242,5 +243,14 @@ while True:
         message = "Testing send email"
         send_email(sender, receiver, subject, message)
 
+=======
+        # Exit the program
+    elif "no thanks" in query or "exit" in query or "close" in query :
+        speak("Thanks For using Me,Have a nice day")
+        exit(0)
+    elif "sleep" in query or "wait" in query:
+        time.sleep(3)
+>>>>>>> 2fc4d4223abbf2876cdccf8ab182604c060c791b
     else:
-        break
+        speak("there is problem with command ,please say again..")
+            continue
