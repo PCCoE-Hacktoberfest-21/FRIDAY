@@ -213,8 +213,13 @@ while True:
 
     elif 'quote' in query:
         get_quote()
-
-
+    
+        # Exit the program
+    elif "no thanks" in query or "exit" in query or "close" in query :
+        speak("Thanks For using Me,Have a nice day")
+        exit(0)
+    elif "sleep" in query or "wait" in query:
+        time.sleep(3)
     else:
         speak("there is problem with command ,please say again..")
             continue
