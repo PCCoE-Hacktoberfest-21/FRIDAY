@@ -4,7 +4,7 @@ import os
 import time
 import requests
 import base64
-
+import pyttsx3
 import playsound  # pip install playsound
 import requests
 import speech_recognition as sr  # pip install SpeechRecognition
@@ -197,6 +197,49 @@ while True:
     elif 'news' in query:
         news()
 
+    elif 'business quote' in query or 'say about business' in query:
+        response=requests.get("https://efflux.herokuapp.com/business")
+        json_data=json.loads(response.text)
+        quote =json_data['q'] + " by "+json_data["a"]
+        print(quote)
+        speak(quote)
+    elif 'love quote' in query or 'say about love' in query:
+        response=requests.get("https://efflux.herokuapp.com/love")
+        json_data=json.loads(response.text)
+        quote =json_data['q'] + " by "+json_data["a"]
+        print(quote)
+        speak(quote)
+    elif 'hustle quote' in query :
+        response=requests.get("https://efflux.herokuapp.com/hustle")
+        json_data=json.loads(response.text)
+        quote =json_data['q'] + " by "+json_data["a"]
+        print(quote)
+        speak(quote)
+    elif 'life quote' in query or 'say about life' in query:
+        response=requests.get("https://efflux.herokuapp.com/life")
+        json_data=json.loads(response.text)
+        quote =json_data['q'] + " by "+json_data["a"]
+        print(quote)
+        speak(quote)
+    elif 'friendship quote' in query or 'say about friendship' in query:
+        response=requests.get("https://efflux.herokuapp.com/friendship")
+        json_data=json.loads(response.text)
+        quote =json_data['q'] + " by "+json_data["a"]
+        print(quote)
+        speak(quote)
+    elif 'war quote' in query or 'say about war' in query:
+        response=requests.get("https://efflux.herokuapp.com/war")
+        json_data=json.loads(response.text)
+        quote =json_data['q'] + " by "+json_data["a"]
+        print(quote)
+        speak(quote)
+    elif 'game quote' in query or 'gaming quote' in query :
+        response=requests.get("https://videogame-quotes-api.herokuapp.com/quotes")
+        json_data=json.loads(response.text)
+        quote =json_data['quote'] + " from "+json_data["game"]
+        print(quote)
+        speak(quote)
+
     elif 'fact' or 'facts' in query:
         get_facts()
 
@@ -222,4 +265,4 @@ while True:
         time.sleep(3)
     else:
         speak("there is problem with command ,please say again..")
-            continue
+        continue
