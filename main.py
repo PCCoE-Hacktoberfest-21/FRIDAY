@@ -46,7 +46,7 @@ def get_audio():
 # for playing music
 def playmusic(): 
     # Here you can provide the mp3 file name.
-    pygame.mixer.music.load("Tobu & Itro - Sunburst [NCS Release] - 15 mins.mp3")
+    pygame.mixer.music.load("Tobu  Itro  Sunburst NCS Release.mp3")
     pygame.mixer.music.play()
 
 # To stop the music
