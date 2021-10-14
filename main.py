@@ -12,7 +12,9 @@ from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
 import speedtest  # for speedtest application
-
+import pygame
+pygame.mixer.init()
+pygame.init()
 
 
 from newsapi import NewsApiClient  # for latest news api
@@ -40,6 +42,16 @@ def get_audio():
             print("Exception: " + str(e))
 
     return said
+
+# for playing music
+def playmusic(): 
+    # Here you can provide the mp3 file name.
+    pygame.mixer.music.load("Tobu & Itro - Sunburst [NCS Release] - 15 mins.mp3")
+    pygame.mixer.music.play()
+
+# To stop the music
+def stopmusic():
+    pygame.mixer.music.stop()
 
 
 # function to convert text_to_speech
@@ -240,10 +252,7 @@ while True:
         print(quote)
         speak(quote)
 
-    elif 'fact' or 'facts' in query:
-        get_facts()
-
-    elif "internet" in command and "speed" in command:
+    elif "internet" in query and "speed" in query:
             speak("Wait for while...")
             st = speedtest.Speedtest()
             up = round(st.upload() / 10 ** 6, 2)
@@ -253,7 +262,13 @@ while True:
             print(f"Upload Speed is {up} MB/s")
             speak(f"Upload Speed is {up} Mb per Sceond")
 
+    elif "play music" in query:
+        playmusic()
+    elif "stop music" in query:
+        stopmusic()
 
+    elif 'fact' in query or 'facts' in query:
+        get_facts()
     elif 'quote' in query:
         get_quote()
     
