@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
 import speedtest  # for speedtest application
-
+import pyscreenshot #For screenshot
 
 
 from newsapi import NewsApiClient  # for latest news api
@@ -145,6 +145,11 @@ def get_quote():
         qt_say = qt[i]['quote'] + ' given by ' + qt[i]['author']
         speak(qt_say)
 
+def get_screenshot():
+    time.sleep(3)
+    image = pyscreenshot.grab()
+    image.show()
+
 time.sleep(2)
 speak("Hi what can i do for you?")
 
@@ -257,6 +262,9 @@ while True:
     elif 'quote' in query:
         get_quote()
     
+    elif "screenshot" in query:
+        get_screenshot()
+        
         # Exit the program
     elif "no thanks" in query or "exit" in query or "close" in query :
         speak("Thanks For using Me,Have a nice day")
