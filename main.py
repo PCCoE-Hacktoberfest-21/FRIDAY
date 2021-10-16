@@ -145,6 +145,7 @@ def get_quote():
         qt_say = qt[i]['quote'] + ' given by ' + qt[i]['author']
         speak(qt_say)
 
+# Function for taking screenshot
 def get_screenshot():
     time.sleep(3)
     image = pyscreenshot.grab()
