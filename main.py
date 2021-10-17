@@ -2,6 +2,8 @@ import datetime
 import json
 import os
 import time
+import weakref
+import webbrowser
 import requests
 import base64
 import pyttsx3
@@ -157,6 +159,15 @@ def get_quote():
         qt_say = qt[i]['quote'] + ' given by ' + qt[i]['author']
         speak(qt_say)
 
+def movie():
+    page= requests.get('https://www.imdb.com/chart/top/')  #webscrapped imdb's top charts
+    soup= BeautifulSoup(page.content, 'html.parser')
+    links= soup.select("table tbody tr td.titleColumn a")  
+    first10= links[:10]     
+    for anchor in first10:
+        print(anchor.text)
+        speak(anchor.text)
+
 time.sleep(2)
 speak("Hi what can i do for you?")
 
@@ -261,6 +272,14 @@ while True:
             speak(f"Download Speed is {down} MB per Sceond")
             print(f"Upload Speed is {up} MB/s")
             speak(f"Upload Speed is {up} Mb per Sceond")
+
+    elif "suggest me movies" in query:
+        speak("I scoured the internet and found the top 10 films according to imdb")
+        print(f"I scoured the internet and found the top 10 films according to imdb")
+        movie()
+        time.sleep(0.2)     
+        speak("now redirecting you to imdb site you can check more reviews there")
+        webbrowser.open("https://www.imdb.com/chart/top/")
 
     elif "play music" in query:
         playmusic()
