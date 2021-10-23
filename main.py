@@ -7,8 +7,7 @@ import webbrowser
 import requests
 import base64
 import pyttsx3
-import psutil
-import math
+import playsound  # pip install playsound
 import requests
 import speech_recognition as sr  # pip install SpeechRecognition
 from bs4 import BeautifulSoup
@@ -17,12 +16,12 @@ import pyaudio  # pip install PyAudio
 import speedtest  # for speedtest application
 import pygame
 import pywhatkit  # Whatsapp messaging
-
+import psutil,math   #pip ionstall math
 pygame.mixer.init()
 pygame.init()
 
 
- # for latest news api
+from newsapi import NewsApiClient  # for latest news api
 import credentials
 
 #if pyaudio installation is failed, try installing it with pywin
@@ -64,7 +63,7 @@ def speak(text):
     tts = gTTS(text=text, lang="en-in")
     filename = "voice2.mp3"
     tts.save(filename)
- 
+    playsound.playsound(filename)
     os.remove(filename)
 
 # Voice_assistant skills#
@@ -170,7 +169,6 @@ def movie():
     for anchor in first10:
         print(anchor.text)
         speak(anchor.text)
-
 def convert_size(size_bytes):
    if size_bytes == 0:
        return "0B"
@@ -179,7 +177,7 @@ def convert_size(size_bytes):
    p = math.pow(1024, i)
    s = round(size_bytes / p, 2)
    print("%s %s" % (s, size_name[i]))
-   return "%s %s" % (s, size_name[i])   
+   return "%s %s" % (s, size_name[i])      
 
 def system_stats():
     cpu_stats = str(psutil.cpu_percent())
@@ -311,7 +309,7 @@ while True:
     elif 'quote' in query:
         get_quote()
         # whatsapp messaging
-    elif "message" in query:
+    elif "message" in command:
         hr, min = datetime.datetime.now().hour, datetime.datetime.now().minute
         phone = credentials.contacts
         speak("whom did you want to send message")
@@ -337,9 +335,10 @@ while True:
         time.sleep(3)
     
     elif "system" in query:
-            sys_info = system_stats()
-            print(sys_info)
-            speak(sys_info)
+        sys_info = system_stats()
+        print(sys_info)
+        speak(sys_info)
+
     else:
         speak("there is problem with command ,please say again..")
         continue
