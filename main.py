@@ -16,6 +16,9 @@ import pyaudio  # pip install PyAudio
 import speedtest  # for speedtest application
 import pygame
 import pywhatkit  # Whatsapp messaging
+import email
+import imaplib
+
 
 pygame.mixer.init()
 pygame.init()
@@ -170,6 +173,55 @@ def movie():
         print(anchor.text)
         speak(anchor.text)
 
+# for importing 5 emails
+def mails():
+    unreads = []
+    username = credentials.email
+    password = credentials.password
+    # creata a imap object
+    imap = imaplib.IMAP4_SSL("imap.gmail.com")
+    # login
+    result = imap.login(username, password)
+    # Use "[Gmail]/Sent Mails" for fetching
+    # mails from Sent Mails.
+    imap.select('"[Gmail]/All Mail"',readonly=True)
+
+    response, messages = imap.search(None,'UnSeen')
+    messages = messages[0].split()
+    latest = int(messages[-1])
+    # take it from start
+    oldest = int(messages[0])
+    for i in range(latest, latest - 5, -1):
+        res, msg = imap.fetch(str(i), "(RFC822)")
+        for response in msg:
+            mail = {}
+            if isinstance(response, tuple):
+                msg = email.message_from_bytes(response[1])
+                # print required information
+                # print(msg)
+                mail['date'] = msg["Date"]
+                mail['sender'] = msg["From"].split('<')[0]
+                mail['subject'] = msg["Subject"]
+
+            for part in msg.walk():
+                if part.get_content_type() == "text/plain":
+                    body = part.get_payload(decode=True)
+                    mail['body'] = body.decode("UTF-8")
+            unreads.append(mail)
+    return unreads
+
+# for reading fetched emails
+def read_mail():
+    # subject of unread emails
+    result = mails()
+print(result)
+for i in range(5):
+    try:
+        print(f"you have a mail from {result[i]['sender']}.Subject is {result[i]['subject']}.on {''.join(result[i]['date'].split()[1:4])}")
+        speak(f"you have a mail from {result[i]['sender']}.Subject is {result[i]['subject']}.on {''.join(result[i]['date'].split()[1:4])}")
+    except:
+        pass
+
 time.sleep(2)
 speak("Hi what can i do for you?")
 
@@ -317,6 +369,9 @@ while True:
         exit(0)
     elif "sleep" in query or "wait" in query:
         time.sleep(3)
+#         for unread emails
+    elif 'unread' or 'new' in query and 'mail' in query:
+        read_mail()
     else:
         speak("there is problem with command ,please say again..")
         continue
