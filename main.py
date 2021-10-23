@@ -15,6 +15,8 @@ from gtts import gTTS  # pip install gTTS
 import pyaudio  # pip install PyAudio
 import speedtest  # for speedtest application
 import pygame
+import pywhatkit  # Whatsapp messaging
+
 pygame.mixer.init()
 pygame.init()
 
@@ -290,7 +292,25 @@ while True:
         get_facts()
     elif 'quote' in query:
         get_quote()
-    
+        # whatsapp messaging
+    elif "message" in command:
+        hr, min = datetime.datetime.now().hour, datetime.datetime.now().minute
+        phone = credentials.contacts
+        speak("whom did you want to send message")
+        user = take_command()
+        speak("What is message")
+        msg = take_command()
+        id = False
+        for i in phone.keys():
+            if i in user:
+                user = i
+                id = True
+                break
+        if id:
+            speak(f"sending {msg} to {user}")
+            pywhatkit.sendwhatmsg(f"{phone[user]}", f"{msg}", hr, min + 2)
+        else:
+            speak(f"We don't have {user} phone no.")
         # Exit the program
     elif "no thanks" in query or "exit" in query or "close" in query :
         speak("Thanks For using Me,Have a nice day")
