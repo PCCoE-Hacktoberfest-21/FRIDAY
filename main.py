@@ -7,7 +7,8 @@ import webbrowser
 import requests
 import base64
 import pyttsx3
-import playsound  # pip install playsound
+import psutil
+import math
 import requests
 import speech_recognition as sr  # pip install SpeechRecognition
 from bs4 import BeautifulSoup
@@ -21,7 +22,7 @@ pygame.mixer.init()
 pygame.init()
 
 
-from newsapi import NewsApiClient  # for latest news api
+ # for latest news api
 import credentials
 
 #if pyaudio installation is failed, try installing it with pywin
@@ -63,7 +64,7 @@ def speak(text):
     tts = gTTS(text=text, lang="en-in")
     filename = "voice2.mp3"
     tts.save(filename)
-    playsound.playsound(filename)
+ 
     os.remove(filename)
 
 # Voice_assistant skills#
@@ -170,6 +171,23 @@ def movie():
         print(anchor.text)
         speak(anchor.text)
 
+def convert_size(size_bytes):
+   if size_bytes == 0:
+       return "0B"
+   size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+   i = int(math.floor(math.log(size_bytes, 1024)))
+   p = math.pow(1024, i)
+   s = round(size_bytes / p, 2)
+   print("%s %s" % (s, size_name[i]))
+   return "%s %s" % (s, size_name[i])   
+
+def system_stats():
+    cpu_stats = str(psutil.cpu_percent())
+    battery_percent = psutil.sensors_battery().percent
+    memory_in_use = convert_size(psutil.virtual_memory().used)
+    total_memory = convert_size(psutil.virtual_memory().total)
+    final_res = f"Currently {cpu_stats} percent of CPU, {memory_in_use} of RAM out of total {total_memory}  is being used and battery level is at {battery_percent} percent"
+    return final_res
 time.sleep(2)
 speak("Hi what can i do for you?")
 
@@ -293,7 +311,7 @@ while True:
     elif 'quote' in query:
         get_quote()
         # whatsapp messaging
-    elif "message" in command:
+    elif "message" in query:
         hr, min = datetime.datetime.now().hour, datetime.datetime.now().minute
         phone = credentials.contacts
         speak("whom did you want to send message")
@@ -317,6 +335,11 @@ while True:
         exit(0)
     elif "sleep" in query or "wait" in query:
         time.sleep(3)
+    
+    elif "system" in query:
+            sys_info = system_stats()
+            print(sys_info)
+            speak(sys_info)
     else:
         speak("there is problem with command ,please say again..")
         continue
