@@ -18,6 +18,7 @@ import pygame
 import pywhatkit  # Whatsapp messaging
 import email
 import imaplib
+import psutil, math
 
 
 pygame.mixer.init()
@@ -221,6 +222,24 @@ for i in range(5):
         speak(f"you have a mail from {result[i]['sender']}.Subject is {result[i]['subject']}.on {''.join(result[i]['date'].split()[1:4])}")
     except:
         pass
+def convert_size(size_bytes):
+   if size_bytes == 0:
+       return "0B"
+   size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+   i = int(math.floor(math.log(size_bytes, 1024)))
+   p = math.pow(1024, i)
+   s = round(size_bytes / p, 2)
+   print("%s %s" % (s, size_name[i]))
+   return "%s %s" % (s, size_name[i])      
+
+def system_stats():
+    cpu_stats = str(psutil.cpu_percent())
+    battery_percent = psutil.sensors_battery().percent
+    memory_in_use = convert_size(psutil.virtual_memory().used)
+    total_memory = convert_size(psutil.virtual_memory().total)
+    final_res = f"Currently {cpu_stats} percent of CPU, {memory_in_use} of RAM out of total {total_memory}  is being used and battery level is at {battery_percent} percent"
+    return final_res
+
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -407,6 +426,16 @@ while True:
             for item in file:
                 speak(item)
             file.close()
-    else:
+        
+        elif "system" in query:
+                sys_info = system_stats()
+                print(sys_info)
+                speak(sys_info)
+                    #time.sleep(5)
+
+            
+                
+                
+        else:
         speak("there is problem with command ,please say again..")
         continue
