@@ -426,12 +426,26 @@ while True:
             for item in file:
                 speak(item)
             file.close()
-        
-        elif "system" in query:
-                sys_info = system_stats()
-                print(sys_info)
-                speak(sys_info)
-                    #time.sleep(5)
+    
+    elif 'search' in query or 'find' in query :
+        query = query.replace("search", "")
+        query = query.replace("find", "")
+        if "youtube" in query or "yt" in query:
+            query = query.replace("youtube", "")
+            query = query.replace("yt", "")
+            webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
+        elif "google" in query:
+            query = query.replace("google", "")
+            webbrowser.open(f'https://www.google.com/search?q={query}')
+        else:
+            webbrowser.open(f'{query}')
+
+    
+    elif "system" in query:
+      sys_info = system_stats()
+      print(sys_info)
+      speak(sys_info)
+      #time.sleep(5)
 
             
                 
