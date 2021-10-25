@@ -372,6 +372,41 @@ while True:
 #         for unread emails
     elif 'unread' or 'new' in query and 'mail' in query:
         read_mail()
+#         shopping list
+    elif "shopping" or "list" in query:
+        if 'add' in query:
+            speak("What do you want to add")
+            item = get_audio().lower()
+            file = open("shopping_list.txt",'a')
+            file.write(item)
+            file.close()
+
+
+        elif 'remove' in query:
+            speak("what do you want to remove")
+            item = get_audio().lower()
+            
+            try:
+                with open("shopping_list.txt", "r") as fp:
+                    lines = fp.readlines()
+
+                with open("shopping_list.txt", "w") as fp:
+                    for line in lines:
+                        if line.strip("\n") != f"{item}":
+                            fp.write(line)
+            except:
+                speak("Your shopping list empty")
+
+
+        elif 'open' or 'read' in query:
+            speak('items in  list are ')
+            try:
+                file = open("shopping_list.txt", 'r')
+            except:
+                speak("Your shopping list empty")
+            for item in file:
+                speak(item)
+            file.close()
     else:
         speak("there is problem with command ,please say again..")
         continue
