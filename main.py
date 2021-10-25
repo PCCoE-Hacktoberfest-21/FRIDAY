@@ -407,6 +407,20 @@ while True:
             for item in file:
                 speak(item)
             file.close()
+    
+    elif 'search' in query or 'find' in query :
+        query = query.replace("search", "")
+        query = query.replace("find", "")
+        if "youtube" in query or "yt" in query:
+            query = query.replace("youtube", "")
+            query = query.replace("yt", "")
+            webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
+        elif "google" in query:
+            query = query.replace("google", "")
+            webbrowser.open(f'https://www.google.com/search?q={query}')
+        else:
+            webbrowser.open(f'{query}')
+
     else:
         speak("there is problem with command ,please say again..")
         continue
