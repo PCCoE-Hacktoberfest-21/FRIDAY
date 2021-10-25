@@ -19,7 +19,11 @@ import pywhatkit  # Whatsapp messaging
 import email
 import imaplib
 import psutil, math
-
+import wolframalpha
+wolframalpha_id="WRAW5Y-K8KXUJQQKQ"
+app_id=wolframalpha_id
+import psutil, math
+from twilio.rest import Client
 
 pygame.mixer.init()
 pygame.init()
@@ -105,7 +109,15 @@ def get_country(command):
         country = command.split()[-2]
     return country
 
-
+def computational_intelligence(question):
+    try:
+        client = wolframalpha.Client(app_id)
+        answer = client.query(question)
+        answer = next(answer.results).text
+        print(answer)
+        return answer
+    except:
+        speak("Sorry sir I couldn't fetch your question's answer. Please try again ")
 def get_covid_cases(country):
     totalActiveCases = 0
     response = requests.get('https://api.covid19api.com/live/country/' + country + '/status/confirmed').json()
@@ -292,6 +304,10 @@ while True:
     
     elif 'news' in query:
         news()
+    elif "what is" in query or "who is" in query or "where is" in query:
+                question = query
+                answer = computational_intelligence(question)
+                speak(answer)
 
     elif 'business quote' in query or 'say about business' in query:
         response=requests.get("https://efflux.herokuapp.com/business")
