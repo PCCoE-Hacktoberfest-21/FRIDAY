@@ -20,7 +20,7 @@ import email
 import imaplib
 import psutil, math
 import wolframalpha
-wolframalpha_id="WRAW5Y-K8KXUJQQKQ"
+wolframalpha_id="wolframalpha_id"  #mention ur wolframalpha id 
 app_id=wolframalpha_id
 import psutil, math
 from twilio.rest import Client
