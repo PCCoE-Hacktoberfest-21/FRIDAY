@@ -19,7 +19,7 @@ import pywhatkit  # Whatsapp messaging
 import email
 import imaplib
 import psutil, math
-
+import pyscreenshot
 
 pygame.mixer.init()
 pygame.init()
@@ -240,6 +240,10 @@ def system_stats():
     final_res = f"Currently {cpu_stats} percent of CPU, {memory_in_use} of RAM out of total {total_memory}  is being used and battery level is at {battery_percent} percent"
     return final_res
 
+def get_screenshot():
+    time.sleep(3)
+    image = pyscreenshot.grab()
+    image.show()
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -432,10 +436,8 @@ while True:
                 print(sys_info)
                 speak(sys_info)
                     #time.sleep(5)
-
-            
-                
-                
-        else:
+    elif "screenshot" in query:
+        get_screenshot()   
+    else:
         speak("there is problem with command ,please say again..")
-        continue
+    continue
