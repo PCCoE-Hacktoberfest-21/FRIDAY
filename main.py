@@ -19,6 +19,9 @@ import pywhatkit  # Whatsapp messaging
 import email
 import imaplib
 import psutil, math
+import wolframalpha  # pip install wolframalpha 
+wolframalpha_id="WRAW5Y-K8KXUJQQKQ" #create a account on wolframalpha and we get a id which we can user here.
+app_id=wolframalpha_id
 
 
 pygame.mixer.init()
@@ -173,6 +176,15 @@ def movie():
     for anchor in first10:
         print(anchor.text)
         speak(anchor.text)
+def computational_intelligence(question):
+    try:
+        client = wolframalpha.Client(app_id)
+        answer = client.query(question)
+        answer = next(answer.results).text
+        print(answer)
+        return answer
+    except:
+        speak("Sorry sir I couldn't fetch your question's answer. Please try again ")
 
 # for importing 5 emails
 def mails():
@@ -364,13 +376,13 @@ while True:
     elif 'quote' in query:
         get_quote()
         # whatsapp messaging
-    elif "message" in command:
+    elif "message" in query:
         hr, min = datetime.datetime.now().hour, datetime.datetime.now().minute
         phone = credentials.contacts
         speak("whom did you want to send message")
-        user = take_command()
+        user = get_audio()  # replaced take_command with get_audio because the finaction name defined was get_auiio
         speak("What is message")
-        msg = take_command()
+        msg = get_audio()
         id = False
         for i in phone.keys():
             if i in user:
@@ -432,10 +444,14 @@ while True:
                 print(sys_info)
                 speak(sys_info)
                     #time.sleep(5)
+        elif "what is" in query or "who is" in query or "where is" in query:
+                    question = query
+                    answer = computational_intelligence(question)
+                    speak(answer)
 
             
                 
                 
         else:
-        speak("there is problem with command ,please say again..")
+            speak("there is problem with command ,please say again..")
         continue
