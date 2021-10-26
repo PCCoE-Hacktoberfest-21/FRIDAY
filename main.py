@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 
 import datetime
@@ -549,7 +550,17 @@ while True:
     elif '©empty_^_^_self.queryª' in query:
                 print(f"  Did Not Get It...\n\n")
                 speak('Did Not Get it!')           
-            
+    elif "restart" in query:
+        subprocess.call(["shutdown", "/r"])
+
+    elif "hibernate" in query or "sleep" in query:
+        speak("Hibernating")
+        subprocess.call("shutdown / h")
+
+    elif "log off" in query or "sign out" in query:
+        speak("Make sure all the application are closed before sign-out")
+        time.sleep(5)
+        subprocess.call(["shutdown", "/l"])
     else:
         speak("there is problem with command ,please say again..")
         continue
