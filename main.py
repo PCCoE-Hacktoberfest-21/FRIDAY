@@ -255,7 +255,24 @@ def system_stats():
     total_memory = convert_size(psutil.virtual_memory().total)
     final_res = f"Currently {cpu_stats} percent of CPU, {memory_in_use} of RAM out of total {total_memory}  is being used and battery level is at {battery_percent} percent"
     return final_res
+def wish():
+     hour = int(datetime.datetime.now().hour)
+     if hour>=22 and hour<5:
+        print('\n\tGood Night Sir!')
+        speak('Good Night Sir')
+     elif hour>=5 and hour<12:
+        print('\n\tGood Morning Sir!')
+        speak(f'Good Morning Buddy')
+     elif hour>=12 and hour<18:
+        print('\n\tGood Afternoon Sir')
+        speak(f'Good Afternoon Sir')
+     else:
+        print('\n\tGood Evening Sir')
+        speak('Good Evening Sir')
 
+     speak('I am Friday, Your Personal AI Assitant sir')
+     
+ 
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -273,6 +290,25 @@ while True:
 
     elif 'joke' in query:
         speak(get_joke())
+       # Tells The Time.
+
+    elif ' time' in query:
+        strTime = datetime.datetime.now().strftime("%I:%M %p")
+        print(f"\n\tIt is {strTime}")
+        speak(f"It's {strTime}")
+
+
+
+    # Tells The Date.
+    elif 'the date' in query or "today's date" in query:
+        strDate = datetime.datetime.now().strftime("%m/%d/%y")
+        print(f"\n\tToday is {strDate}")
+        speak(f"Today is, {strDate}")
+
+
+        # Greets the User.
+    elif 'greet me' in query or 'wish me' in query:
+        wish()
 
     if last_query:
         if last_query == 'open notepad':
