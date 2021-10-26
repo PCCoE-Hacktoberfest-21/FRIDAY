@@ -1,3 +1,6 @@
+import os
+
+
 import datetime
 import json
 import os
@@ -20,10 +23,11 @@ import email
 import imaplib
 import psutil, math
 import wolframalpha
-wolframalpha_id="wolframalpha_id"  #mention ur wolframalpha id 
+wolframalpha_id="WRAW5Y-K8KXUJQQKQ"
 app_id=wolframalpha_id
 import psutil, math
 from twilio.rest import Client
+import random
 
 pygame.mixer.init()
 pygame.init()
@@ -462,10 +466,90 @@ while True:
       print(sys_info)
       speak(sys_info)
       #time.sleep(5)
+   #random talks
+    elif 'ok' in query or 'okay' in query:
+                    print("\n\tThat's It")
+                    speak("That's It.")
+   
+  
+                # It's Creator.
+    elif 'who made you' in query or 'who created you' in query:
+        print('\n\tI Was Made by Team Pccoe and many other Contributors ')
+        speak("I Was Made by Team Pccoe and many other Contributors")
+    
+    elif 'thanks' in query or 'thank you' in query:
+                thanksGiving = [
+                'Nevermind!',
+                'You are Always Welcome!',
+                'Mention Not!',
+                "That's My Duty!"
+                ]
+                thanksGiving = random.choice(thanksGiving)
+                print(f'\n\t{thanksGiving}')
+                speak(thanksGiving)
 
+
+            # Replies Welcome.
+    elif 'welcome' in query:
+        print('\n\tI Feel Honored!')
+        speak('I Feel Honored!')
+
+
+
+    # Replies Sorry.
+    elif 'sorry' in query or 'my fault' in query or 'my mistake' in query:
+        print('\n\tHey! Never Repeat This.')
+        speak('Hey! Please Never Repeat This.')
+    # Says It's Condition.
+    elif 'how are you' in query or 'how do you do' in query:
+        as_i_am = [
+        'I am Fine,',
+        'I am Doing Well,',
+        'I am Great,'
+        ]
+        as_i_am = random.choice(as_i_am)
+        print(f'\n\t{as_i_am} Thanks For Asking!')
+        speak(as_i_am + ' Thanks For Asking!')
+
+    elif "bot" == query or 'boat' in query or 'friday' in query :
+                toReply = [
+                'Ready to Help You!',
+                'How Can I Help You?',
+                'I am Here'     
+                ]
+                toReply = random.choice(toReply)
+                print(f"\n\t{toReply}")
+                speak(toReply)
+
+                
+                # Reacts If User Says Hey.
+    elif "hey" in query or "hi" in query:
+        hey_ans = [
+            'Ready to Help You!',
+            'How Can I Help You?',
+            'I am Here to Help You!'
+        ]
+        hey_ans = random.choice(hey_ans)
+        print(f'\n\t{hey_ans}')
+        speak(hey_ans)
+
+    elif f'hello' in query or f'hi' in query:
+                 hello_ans = [
+                     'Hi Sir!',
+                     'Hey Sir!',
+                     'Hello Sir!',
+                     'Heyy Whatsupp!',
+                     'Hey There !',
+                     'Hello There !'
+                 ]
+                 hello_ans = random.choice(hello_ans)
+                 print(f'\n\t{hello_ans}! How Can I Help You?')
+                 speak(f'{hello_ans}! How Can I Help You?')
+                            
+    elif '©empty_^_^_self.queryª' in query:
+                print(f"  Did Not Get It...\n\n")
+                speak('Did Not Get it!')           
             
-                
-                
-        else:
+    else:
         speak("there is problem with command ,please say again..")
         continue

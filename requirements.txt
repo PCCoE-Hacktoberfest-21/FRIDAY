@@ -78,4 +78,4 @@ newsapi~=0.1.1
 quote~=2.0.4
 psuitl=5.8.0
 wolframalpha==4.1.1
-
+random
