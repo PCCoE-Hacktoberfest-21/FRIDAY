@@ -273,7 +273,14 @@ def wish():
 
      speak('I am Friday, Your Personal AI Assitant sir')
      
- 
+ application ={'photoshop': 'C:\\"Program Files"\\Adobe\\Adobe Photoshop CC 2018\\Photoshop.exe',
+       'brave': 'C:\\"Program Files"\\BraveSoftware\\Brave-Browser\\Application\\brave.exe',
+       'cheerytree': 'C:\\"Program Files"\\CherryTree\\mingw64\\bin\\cherrytree.exe',
+       'pycharm': 'C:\\"Program Files"\\JetBrains\\PyCharm Community Edition 2020.3\\bin\\pycharm64.exe',
+       'notepad': 'C:\\"Program Files"\\Notepad++\\notepad++.exe',
+       'chrome': 'C:\\"Program Files (x86)"\\Google\\Chrome\\Application\\chrome.exe',
+       'edge': 'C:\\"Program Files (x86)"\\Microsoft\\Edge\\Application\\95.0.1020.30\\msedge.exe',
+       'kmplayer': 'C:\\"Program Files (x86)"\\The KMPlayer\\KMPlayer.exe'}
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -597,6 +604,20 @@ while True:
         speak("Make sure all the application are closed before sign-out")
         time.sleep(5)
         subprocess.call(["shutdown", "/l"])
+    
+    elif 'open' in query or 'start' in query:
+        for app in application.keys():
+            if app in query:
+                speak(f"Wait we are starting {app}")
+                print(f"start {application[app]}")
+                os.system(f"start {application[app]}")
+
+    elif 'close' in query or 'end' in query:
+        for app in application.keys():
+            if app in query:
+                speak(f"Wait we are closing {app}")
+                print(f"start {application[app]}")
+                os.system(f"taskkill /f /im {application[app]}")
     else:
         speak("there is problem with command ,please say again..")
         continue
