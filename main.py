@@ -545,7 +545,16 @@ while True:
                  hello_ans = random.choice(hello_ans)
                  print(f'\n\t{hello_ans}! How Can I Help You?')
                  speak(f'{hello_ans}! How Can I Help You?')
-                            
+    # LOGOUT FROM THE WINDOWS
+    elif 'logout' in query:
+        os.system("shutdown -1")
+        # SHUTDOWN THE WINDOWS
+    elif 'shutdown' in query:
+        os.system("shutdown /s /t 1")
+        # RESTART THE WINDOWS
+    elif 'restart' in query:
+        os.system("shutdown /r /t 1")     
+                           
     elif '©empty_^_^_self.queryª' in query:
                 print(f"  Did Not Get It...\n\n")
                 speak('Did Not Get it!')           
