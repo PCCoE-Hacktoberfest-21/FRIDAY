@@ -606,18 +606,18 @@ while True:
         subprocess.call(["shutdown", "/l"])
     
     elif 'open' in query or 'start' in query:
-        for app in application.keys():
+        for app in credentials.application.keys():
             if app in query:
                 speak(f"Wait we are starting {app}")
-                print(f"start {application[app]}")
-                os.system(f"start {application[app]}")
+                print(f"start {credentials.application[app]}")
+                os.system(f"start {credentials.application[app]}")
 
     elif 'close' in query or 'end' in query:
-        for app in application.keys():
+        for app in credentials.application.keys():
             if app in query:
                 speak(f"Wait we are closing {app}")
-                print(f"start {application[app]}")
-                os.system(f"taskkill /f /im {application[app]}")
+                print(f"start {credentials.application[app]}")
+                os.system(f"taskkill /f /im {credentials.application[app]}")
     else:
         speak("there is problem with command ,please say again..")
         continue
