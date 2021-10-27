@@ -272,15 +272,7 @@ def wish():
         speak('Good Evening Sir')
 
      speak('I am Friday, Your Personal AI Assitant sir')
-     
- application ={'photoshop': 'C:\\"Program Files"\\Adobe\\Adobe Photoshop CC 2018\\Photoshop.exe',
-       'brave': 'C:\\"Program Files"\\BraveSoftware\\Brave-Browser\\Application\\brave.exe',
-       'cheerytree': 'C:\\"Program Files"\\CherryTree\\mingw64\\bin\\cherrytree.exe',
-       'pycharm': 'C:\\"Program Files"\\JetBrains\\PyCharm Community Edition 2020.3\\bin\\pycharm64.exe',
-       'notepad': 'C:\\"Program Files"\\Notepad++\\notepad++.exe',
-       'chrome': 'C:\\"Program Files (x86)"\\Google\\Chrome\\Application\\chrome.exe',
-       'edge': 'C:\\"Program Files (x86)"\\Microsoft\\Edge\\Application\\95.0.1020.30\\msedge.exe',
-       'kmplayer': 'C:\\"Program Files (x86)"\\The KMPlayer\\KMPlayer.exe'}
+  
 
 time.sleep(2)
 speak("Hi what can i do for you?")
