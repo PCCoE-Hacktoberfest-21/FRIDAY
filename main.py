@@ -28,6 +28,7 @@ app_id=wolframalpha_id
 import psutil, math
 from twilio.rest import Client
 import random
+import pyautogui
 
 pygame.mixer.init()
 pygame.init()
@@ -247,6 +248,10 @@ def convert_size(size_bytes):
    s = round(size_bytes / p, 2)
    print("%s %s" % (s, size_name[i]))
    return "%s %s" % (s, size_name[i])      
+
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save("ss.png")
 
 def system_stats():
     cpu_stats = str(psutil.cpu_percent())
@@ -554,7 +559,11 @@ while True:
         # RESTART THE WINDOWS
     elif 'restart' in query:
         os.system("shutdown /r /t 1")     
-                           
+
+    elif 'screenshot' in query:
+            screenshot()
+            speak("Screenshot is taken!")
+
     elif '©empty_^_^_self.queryª' in query:
                 print(f"  Did Not Get It...\n\n")
                 speak('Did Not Get it!')           
