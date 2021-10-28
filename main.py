@@ -272,8 +272,7 @@ def wish():
         speak('Good Evening Sir')
 
      speak('I am Friday, Your Personal AI Assitant sir')
-     
- 
+  
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -597,6 +596,20 @@ while True:
         speak("Make sure all the application are closed before sign-out")
         time.sleep(5)
         subprocess.call(["shutdown", "/l"])
+    
+    elif 'open' in query or 'start' in query:
+        for app in credentials.application.keys():
+            if app in query:
+                speak(f"Wait we are starting {app}")
+                print(f"start {credentials.application[app]}")
+                os.system(f"start {credentials.application[app]}")
+
+    elif 'close' in query or 'end' in query:
+        for app in credentials.application.keys():
+            if app in query:
+                speak(f"Wait we are closing {app}")
+                print(f"start {credentials.application[app]}")
+                os.system(f"taskkill /f /im {credentials.application[app]}")
     else:
         speak("there is problem with command ,please say again..")
         continue
