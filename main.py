@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+from ecapture import ecapture as ec
 
 import datetime
 import json
@@ -610,6 +610,8 @@ while True:
                 speak(f"Wait we are closing {app}")
                 print(f"start {credentials.application[app]}")
                 os.system(f"taskkill /f /im {credentials.application[app]}")
+    elif "camera" in query or "take a photo" in query:
+            ec.capture(0, "friday Camera ", "img.jpg")
     else:
         speak("there is problem with command ,please say again..")
         continue
