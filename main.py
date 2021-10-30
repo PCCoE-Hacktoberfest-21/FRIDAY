@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+from ecapture import ecapture as ec
 
 import datetime
 import json
@@ -622,6 +622,8 @@ while True:
     elif 'do you remember' in query:
         remember = open('data.txt', 'r')
         speak("you said me to remember that"+remember.read())
+    elif "camera" in query or "take a photo" in query:
+            ec.capture(0, "friday Camera ", "img.jpg")
     else:
         speak("there is problem with command ,please say again..")
         continue
