@@ -273,6 +273,22 @@ def wish():
 
      speak('I am Friday, Your Personal AI Assitant sir')
   
+# weather report 
+def weather():
+    # Current Weather report
+    api_request = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Pune&appid={}".format(credentials.weatherapikey))
+    api = json.loads(api_request.content)
+    y = api['main']
+    current_temprature = round(y['temp'] - 273, 2)
+    humidity = y['humidity']
+    tempmin = round(y['temp_min'] - 273, 2)
+    tempmax = round(y['temp_max'] - 273, 2)
+    report = f"""current temprature is {current_temprature} degree celcius ,
+            Humidity is {humidity} ,
+            Minimum temprature is {tempmin} degree celcius
+            and maximum temprature is {tempmax} degree celcius """
+    speak(report)
+    print(report)
 
 time.sleep(2)
 speak("Hi what can i do for you?")
@@ -612,6 +628,9 @@ while True:
                 os.system(f"taskkill /f /im {credentials.application[app]}")
     elif "camera" in query or "take a photo" in query:
             ec.capture(0, "friday Camera ", "img.jpg")
+#     weather report
+    elif "weather" in query:
+		weather()
     else:
         speak("there is problem with command ,please say again..")
         continue
