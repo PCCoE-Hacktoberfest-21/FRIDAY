@@ -36,6 +36,7 @@ pygame.init()
 
 from newsapi import NewsApiClient  # for latest news api
 import credentials
+from events_api import events
 
 #if pyaudio installation is failed, try installing it with pywin
 import randfacts as rf #pip install randfacts
@@ -643,6 +644,10 @@ while True:
 #     weather report
     elif "weather" in query:
 		weather()
+    elif "event" in query or "schedule" in query:
+        speak("Upcoming first 10 events")
+        for i in events():
+            speak(f"you have {i[1]} on {i[0]}")
     else:
         speak("there is problem with command ,please say again..")
         continue
