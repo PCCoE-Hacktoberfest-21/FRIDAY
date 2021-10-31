@@ -28,4 +28,8 @@ This repository is accepting PRs for HacktoberFest 2021🤩
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                      **[Rohit Joshi](https://www.linkedin.com/in/rohit-joshi-5119191a7/)** 
 
+## Contributors 👩‍💻👨‍💻
+<a href="https://github.com/PCCoE-Hacktoberfest-21/FRIDAY/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=PCCoE-Hacktoberfest-21/FRIDAY" />
+</a>
 
