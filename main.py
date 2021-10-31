@@ -610,6 +610,18 @@ while True:
                 speak(f"Wait we are closing {app}")
                 print(f"start {credentials.application[app]}")
                 os.system(f"taskkill /f /im {credentials.application[app]}")
+    # REMEMBER WE SAID TO REMEMBER
+    elif 'remember that' in query:
+        speak("What should i remember")
+        data = get_audio()
+        speak("Okay. I will remember that ")
+        remember = open('data.txt', 'w')
+        remember.write(data)
+        remember.close()
+    # TO REMEMBER THE PREVIOUS TEXT
+    elif 'do you remember' in query:
+        remember = open('data.txt', 'r')
+        speak("you said me to remember that"+remember.read())
     elif "camera" in query or "take a photo" in query:
             ec.capture(0, "friday Camera ", "img.jpg")
     else:
