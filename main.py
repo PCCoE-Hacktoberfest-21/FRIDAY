@@ -36,6 +36,7 @@ pygame.init()
 
 from newsapi import NewsApiClient  # for latest news api
 import credentials
+from events_api import events
 
 #if pyaudio installation is failed, try installing it with pywin
 import randfacts as rf #pip install randfacts
@@ -625,16 +626,32 @@ while True:
                 speak(f"Wait we are closing {app}")
                 print(f"start {credentials.application[app]}")
                 os.system(f"taskkill /f /im {credentials.application[app]}")
+    # REMEMBER WE SAID TO REMEMBER
+    elif 'remember that' in query:
+        speak("What should i remember")
+        data = get_audio()
+        speak("Okay. I will remember that ")
+        remember = open('data.txt', 'w')
+        remember.write(data)
+        remember.close()
+    # TO REMEMBER THE PREVIOUS TEXT
+    elif 'do you remember' in query:
+        remember = open('data.txt', 'r')
+        speak("you said me to remember that"+remember.read())
     elif "camera" in query or "take a photo" in query:
             ec.capture(0, "friday Camera ", "img.jpg")
 #     weather report
     elif "weather" in query:
-	weather()
+        weather()
     elif "what can you do" in command:
-	speak("I can make you laugh with jokes, motivate you through quotes, kill your boredom with interesting facts")
+	      speak("I can make you laugh with jokes, motivate you through quotes, kill your boredom with interesting facts")
         speak(" I can say the latest news, weather report, internet speed, system info, covid stats")
-	speak("I can open and close applications")
-	speak(" I can play youtube videos, songs and search for things on the internet, suggest a movie and do a lot")
+	      speak("I can open and close applications")
+	      speak(" I can play youtube videos, songs and search for things on the internet, suggest a movie and do a lot")
+    elif "event" in query or "schedule" in query:
+        speak("Upcoming first 10 events")
+        for i in events():
+            speak(f"you have {i[1]} on {i[0]}")
     else:
         speak("there is problem with command ,please say again..")
         continue
