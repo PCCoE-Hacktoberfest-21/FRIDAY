@@ -619,7 +619,6 @@ while True:
                 speak(f"Wait we are starting {app}")
                 print(f"start {credentials.application[app]}")
                 os.system(f"start {credentials.application[app]}")
-
     elif 'close' in query or 'end' in query:
         for app in credentials.application.keys():
             if app in query:
@@ -630,7 +629,12 @@ while True:
             ec.capture(0, "friday Camera ", "img.jpg")
 #     weather report
     elif "weather" in query:
-		weather()
+	weather()
+    elif "what can you do" in command:
+	speak("I can make you laugh with jokes, motivate you through quotes, kill your boredom with interesting facts")
+        speak(" I can say the latest news, weather report, internet speed, system info, covid stats")
+	speak("I can open and close applications")
+	speak(" I can play youtube videos, songs and search for things on the internet, suggest a movie and do a lot")
     else:
         speak("there is problem with command ,please say again..")
         continue
